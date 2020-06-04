@@ -1,0 +1,9 @@
+{% if message %}
+    <div class="errors">
+        <p>{{ message }}</p>
+    </div>
+{% elif image %}
+    <div class="image">
+        <img id="resultant" src="{{ image }}" title="{{ username }}'s Profile Pic" alt="{{ username }}'s Profile Pic">
+    </div>
+{% endif %}

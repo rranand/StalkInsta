@@ -1,0 +1,1 @@
+web: gunicorn Stalker.wsgi --log-file -

@@ -50,13 +50,13 @@ input {
 }
 
 input:focus {
-    border: 1px solid royalblue;
+    border: 1px solid #4169e1;
     outline: none;
 }
 
 button  {
   position: relative;
-  border: 1px solid royalblue;
+  border: 1px solid #4169e1;
   background: white;
   cursor: pointer;
   border-radius: 4px;
@@ -134,5 +134,21 @@ img {
     background: royalblue;
     text-decoration: none;
     border-radius: 6px;
+    color: white;
+}
+
+#loader {
+    width: 100px;
+    height: 100px;
+    border: none;
+    outline: none;
+    display: none;
+    margin-top: -20px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#header_link {
+    text-decoration: none;
     color: white;
 }

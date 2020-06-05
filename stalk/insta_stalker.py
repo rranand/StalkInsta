@@ -1,19 +1,17 @@
-import requests
-from bs4 import BeautifulSoup
-import re
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
+
+options = Options()
+options.add_argument('-headless')
+driver = webdriver.Firefox(executable_path='geckodriver', options=options)
 
 
 def get_image(username):
-    try:
-        req = requests.get('https://www.instadp.com/fullsize/{}'.format(username))
-    except requests.exceptions.ConnectionError:
-        return -1
+    global driver
+    driver.get('https://www.instadp.com/fullsize/{}'.format(username))
+    img = driver.find_element_by_class_name('picture').get_attribute('src')
 
-    soup = BeautifulSoup(req.text, 'html.parser')
-    x = soup.prettify()
-    link = re.findall('preloadImg\(\'(.+)\'\)', str(x))
-
-    if len(link) == 1:
-        return link[0]
+    if len(img) != 0:
+        return img
     else:
         return -1

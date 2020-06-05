@@ -1,7 +1,7 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.urls import reverse
-
+import requests
 from .models import *
 from .forms import *
 from .insta_stalker import *
@@ -62,13 +62,16 @@ def getProfile(request):
     return render(request, 'result.html', context)
 
 
-def call_download(request, username):
-    link = get_image(username)
-    if link != -1:
-        file_name = str(username) + '.jpg'
+def call_download(request, link):
+
+    if len(link) != 0:
         response = HttpResponse(requests.get(link).content, content_type='application/force-download')
-        response['Content-Disposition'] = 'attachment; filename="%s"' % file_name
+        response['Content-Disposition'] = 'attachment; filename="%s"' % 'Image.jpg'
         response['X-Sendfile'] = link
 
         return response
+    return HttpResponseRedirect(reverse('homepage'))
+
+
+def error_page(request, found):
     return HttpResponseRedirect(reverse('homepage'))

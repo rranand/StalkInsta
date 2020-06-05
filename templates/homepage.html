@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="header">
-        <h1>Stalk<span>Insta</span></h1>
+        <a id="header_link" href="{% url 'homepage' %}"><h1>Stalk<span>Insta</span></h1></a>
     </div>
     <div class="form"></div>
         <h2>Get Full Resoultion Instagram's DP</h2>
@@ -21,8 +21,18 @@
             {% for i in form %}
                 {{ i }}
             {% endfor %}
-            <br><button type="submit">Submit</button>
+            <br><button id="hideImg" type="submit">Submit</button>
         </form>
-        <div class="loadContent"></div>
+        <img id="loader" src="{% static 'loading.gif' %}" alt="Wait Stalker, Your request is Processing!!!" title="Loading">
+        <div class="loadContent">
+        </div>
 </body>
+<script>
+    $(document).ready(function() {
+        $('#user_form').on('submit', function () {
+            const img = document.getElementById('loader');
+            img.style.display = 'block';
+        })
+    });
+</script>
 </html>

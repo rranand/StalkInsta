@@ -4,8 +4,11 @@
     </div>
 {% elif image %}
     <div class="image">
-        <img id="resultant" src="{{ image }}" title="{{ username }}'s Profile Pic" alt="{{ username }}'s Profile Pic">
+        <img id="resultant" src="{{ image }}" title="{{ username }}'s Profile Pic" alt="{{ username }}'s Profile Pic" onload="function f() {
+          const img = document.getElementById('loader');
+          img.style.display = 'block';
+        }">
     </div>
-    <a class="download_button" href="{% url 'downloadImg' username %}">Download</a>
+    <a class="download_button" href="{% url 'downloadImg' image %}">Download</a>
     <div class="form"></div>
 {% endif %}

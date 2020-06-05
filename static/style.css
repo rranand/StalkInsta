@@ -128,3 +128,11 @@ img {
     border: 2px solid rgba(0, 0, 0, .2);
     margin-bottom: 40px;
 }
+
+.download_button {
+    padding: 10px 15px;
+    background: royalblue;
+    text-decoration: none;
+    border-radius: 6px;
+    color: white;
+}

@@ -6,4 +6,6 @@
     <div class="image">
         <img id="resultant" src="{{ image }}" title="{{ username }}'s Profile Pic" alt="{{ username }}'s Profile Pic">
     </div>
+    <a class="download_button" href="{% url 'downloadImg' username %}">Download</a>
+    <div class="form"></div>
 {% endif %}

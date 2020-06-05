@@ -42,7 +42,7 @@ def getProfile(request):
 
                 if res == -1:
                     context = {
-                        'message': 'Something Went Wrong Please Try Again',
+                        'message': 'No, User associated with ' + str(username),
                         'form': f1,
                     }
                 else:

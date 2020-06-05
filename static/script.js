@@ -17,6 +17,7 @@ $(document).on('submit', '#user_form', function (e) {
 function hideLoader() {
     try {
       let x = document.getElementById("resultant").complete;
+
       if (x===true) {
         document.getElementById("loader").style.display = 'none';
       }

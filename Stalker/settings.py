@@ -98,6 +98,3 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-
-
-DRIVER_PATH = os.path.join(BASE_DIR, 'geckodriver.exe')

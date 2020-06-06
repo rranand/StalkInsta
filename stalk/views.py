@@ -23,7 +23,7 @@ def home(request):
 def getProfile(request):
     f1 = getUsername()
 
-    if request.method == 'POST' and request.is_ajax():
+    if request.method == 'POST':
         f1 = getUsername(request.POST)
 
         if f1.is_valid():

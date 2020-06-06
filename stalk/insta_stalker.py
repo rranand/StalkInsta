@@ -1,9 +1,16 @@
+import json
+import requests
+from bs4 import BeautifulSoup
+import re
+
+'''
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
-import json, requests
+from django.conf import settings
+
 options = Options()
 options.add_argument('-headless')
-driver = webdriver.Firefox(executable_path='geckodriver', options=options)
+driver = webdriver.Firefox(executable_path=settings.DRIVER_PATH, options=options)
 
 
 def get_image(username):
@@ -14,9 +21,32 @@ def get_image(username):
     if len(img) != 0:
         return img
     else:
-        req = json.loads(requests.get('https://www.instagram.com/{}/?__a=1'.format(username)).text)
-        if len(req) > 0:
-            return req['graphql']['user']['profile_pic_url_hd']
-        else:
-            return -1
+        return get_image_json(username)
+'''
 
+
+def get_image(username):
+    req = json.loads(requests.get('https://www.instagram.com/{}/?__a=1'.format(username)).text)
+    if len(req) > 0:
+        e = get_image_alter(username)
+
+        if re.search('^http', str(e)):
+            return str(e)
+        return req['graphql']['user']['profile_pic_url_hd']
+    else:
+        return -1
+    
+
+def get_image_alter(username):
+    try:
+        r = requests.get('https://www.instadp.com/fullsize/{}'.format(username)).text
+    except requests.exceptions:
+        return -1
+    try:
+        soup = BeautifulSoup(r, features="html.parser")
+        link = soup.select('img[class="picture"]')
+    except Exception:
+        return -1
+    if len(link) > 0:
+        return link[0]['src']
+    return -1

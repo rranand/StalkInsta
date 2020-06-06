@@ -30,9 +30,9 @@ def get_image(username):
     if len(req) > 0:
         e = get_image_alter(username)
 
-        if re.search('^http', str(e)):
+        if e != -1:
             return str(e)
-        return req['graphql']['user']['profile_pic_url_hd']
+        return str(req['graphql']['user']['profile_pic_url_hd'])
     else:
         return -1
     
@@ -40,13 +40,17 @@ def get_image(username):
 def get_image_alter(username):
     try:
         r = requests.get('https://www.instadp.com/fullsize/{}'.format(username)).text
-    except requests.exceptions:
+    except requests.exceptions.ConnectionError:
         return -1
-    try:
-        soup = BeautifulSoup(r, features="html.parser")
-        link = soup.select('img[class="picture"]')
-    except Exception:
+    except requests.exceptions.Timeout:
         return -1
+    except requests.exceptions.TooManyRedirects:
+        return -1
+    except requests.exceptions.RequestException:
+        return -1
+    soup = BeautifulSoup(r, features="html.parser")
+    link = soup.select('img[class="picture"]')[0]['src']
+
     if len(link) > 0:
-        return link[0]['src']
+        return link
     return -1
